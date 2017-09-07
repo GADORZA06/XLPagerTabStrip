@@ -116,7 +116,6 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         if buttonBarView.superview == nil {
             view.addSubview(buttonBarView)
         }
@@ -279,6 +278,8 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         
+        cell.labelLayoutAttrib = settings.style.buttonBarLayoutAlignment ?? .CenterY
+            
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {
             cell.imageView.image = image

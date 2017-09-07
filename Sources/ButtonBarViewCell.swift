@@ -26,6 +26,8 @@ import Foundation
 
 public class ButtonBarViewCell: UICollectionViewCell {
     
+    public var labelLayoutAttrib: NSLayoutAttribute!
+    
     @IBOutlet public var imageView: UIImageView!
     @IBOutlet public lazy var label: UILabel! = { [unowned self] in
         let label = UILabel(frame: self.contentView.bounds)
@@ -50,14 +52,12 @@ public class ButtonBarViewCell: UICollectionViewCell {
         
         if label.superview != nil {
             contentView.addSubview(labelView)
-        
             label.translatesAutoresizingMaskIntoConstraints = false
-            let settings = ButtonBarPagerTabStripSettings().style
             let constraint = NSLayoutConstraint(item: label,
-                                            attribute: settings.buttonBarLayoutAlignment ?? .CenterY,
+                                            attribute: labelLayoutAttrib,
                                             relatedBy: .Equal,
                                             toItem: contentView,
-                                            attribute: settings.buttonBarLayoutAlignment ?? .CenterY,
+                                            attribute: labelLayoutAttrib,
                                             multiplier: 0.9,
                                             constant: 0)
             contentView.addConstraint(constraint)

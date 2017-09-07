@@ -31,10 +31,13 @@ class ButtonBarExampleViewController: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         buttonBarView.selectedBar.backgroundColor = .orangeColor()
         buttonBarView.backgroundColor = UIColor(red: 7/255, green: 185/255, blue: 155/255, alpha: 1)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     // MARK: - PagerTabStripDataSource
