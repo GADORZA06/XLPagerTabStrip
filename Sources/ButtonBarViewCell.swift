@@ -30,16 +30,46 @@ public class ButtonBarViewCell: UICollectionViewCell {
     @IBOutlet public lazy var label: UILabel! = { [unowned self] in
         let label = UILabel(frame: self.contentView.bounds)
         label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        
         label.textAlignment = .Center
+        
         label.font = UIFont.boldSystemFontOfSize(14.0)
         return label
+    }()
+    
+    private lazy var labelView:UIView = {
+        let v = UIView()
+        
+        v.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        v.addSubview(self.label)
+        return v
     }()
     
     public override func willMoveToSuperview(newSuperview: UIView?) {
         super.willMoveToSuperview(newSuperview)
         
         if label.superview != nil {
-            contentView.addSubview(label)
+            contentView.addSubview(labelView)
+        
+            label.translatesAutoresizingMaskIntoConstraints = false
+            let settings = ButtonBarPagerTabStripSettings().style
+            let constraint = NSLayoutConstraint(item: label,
+                                            attribute: settings.buttonBarLayoutAlignment ?? .CenterY,
+                                            relatedBy: .Equal,
+                                            toItem: contentView,
+                                            attribute: settings.buttonBarLayoutAlignment ?? .CenterY,
+                                            multiplier: 0.9,
+                                            constant: 0)
+            contentView.addConstraint(constraint)
+        
+            let constraintCenter = NSLayoutConstraint(item: label,
+                                                attribute: .CenterX,
+                                                relatedBy: .Equal,
+                                                toItem: contentView,
+                                                attribute: .CenterX,
+                                                multiplier: 1.0,
+                                                constant: 0)
+            contentView.addConstraint(constraintCenter)
         }
     }
 }

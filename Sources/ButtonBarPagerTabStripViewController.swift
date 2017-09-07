@@ -56,6 +56,8 @@ public struct ButtonBarPagerTabStripSettings {
         public var buttonBarItemLeftRightMargin: CGFloat = 8
         public var buttonBarItemTitleColor: UIColor?
         public var buttonBarItemsShouldFillAvailiableWidth = true
+        
+        public var buttonBarLayoutAlignment:NSLayoutAttribute?
        
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
@@ -72,7 +74,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = self?.settings.style.buttonBarItemFont
-        label.text = childItemInfo.title
+        label.text = "asldkj"//childItemInfo.title
         let labelSize = label.intrinsicContentSize()
         return labelSize.width + (self?.settings.style.buttonBarItemLeftRightMargin ?? 8) * 2
     })
@@ -88,6 +90,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         buttonBar.backgroundColor = .orangeColor()
         buttonBar.selectedBar.backgroundColor = .blackColor()
         buttonBar.autoresizingMask = .FlexibleWidth
+        
         var newContainerViewFrame = self.containerView.frame
         newContainerViewFrame.origin.y = buttonBarHeight
         newContainerViewFrame.size.height = self.containerView.frame.size.height - (buttonBarHeight - self.containerView.frame.origin.y)
@@ -136,6 +139,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         buttonBarView.selectedBar.backgroundColor = settings.style.selectedBarBackgroundColor
         
         buttonBarView.selectedBarHeight = settings.style.selectedBarHeight ?? buttonBarView.selectedBarHeight
+        
         // register button bar item cell
         switch buttonBarItemSpec {
         case .NibFile(let nibName, let bundle, _):
@@ -274,6 +278,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         cell.label.font = settings.style.buttonBarItemFont ?? cell.label.font
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
+        
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {
             cell.imageView.image = image
