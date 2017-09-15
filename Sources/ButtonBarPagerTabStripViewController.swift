@@ -90,7 +90,6 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         let buttonBarHeight = self.settings.style.buttonBarHeight ?? 44
         let buttonBar = ButtonBarView(frame: CGRectMake(0, 0, self.view.frame.size.width, buttonBarHeight), collectionViewLayout: flowLayout)
 
-
         buttonBar.backgroundColor = .orangeColor()
         buttonBar.selectedBar.backgroundColor = .blackColor()
         buttonBar.autoresizingMask = .FlexibleWidth
@@ -139,12 +138,6 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
 
         buttonBarView.showsHorizontalScrollIndicator = false
         
-        //background image
-        if let bgImageView = settings.style.buttonBarBackgroundImageView {
-            buttonBarView.addSubview(bgImageView)
-            buttonBarView.sendSubviewToBack(bgImageView)
-        }
-        
         buttonBarView.backgroundColor = settings.style.buttonBarBackgroundColor ?? buttonBarView.backgroundColor
         buttonBarView.selectedBar.backgroundColor = settings.style.selectedBarBackgroundColor
         
@@ -158,6 +151,12 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
             buttonBarView.registerClass(ButtonBarViewCell.self, forCellWithReuseIdentifier:"Cell")
         }
         //-
+        
+        //background images
+        if let bgImageView = settings.style.buttonBarBackgroundImageView {
+            buttonBarView.addSubview(bgImageView)
+            buttonBarView.sendSubviewToBack(bgImageView)
+        }
     }
     
     public override func viewWillAppear(animated: Bool) {
