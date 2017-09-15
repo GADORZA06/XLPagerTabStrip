@@ -59,7 +59,7 @@ public struct ButtonBarPagerTabStripSettings {
         
         //added options *pat o*
         public var buttonBarLayoutAlignment:NSLayoutAttribute?
-        public var buttonBarBackgroundImage:UIImage?
+        public var buttonBarBackgroundImageView:UIImageView?
         
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
@@ -280,16 +280,15 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         
         //background image
-        let bgImage = settings.style.buttonBarBackgroundImage ?? nil
-        let bgImageView = UIImageView(image: bgImage)
-        bgImageView.contentMode = .ScaleAspectFill
-        cell.contentView.addSubview(bgImageView)
-        cell.contentView.sendSubviewToBack(bgImageView)
+        if let bgImageView = settings.style.buttonBarBackgroundImageView {
+            cell.contentView.addSubview(bgImageView)
+            cell.contentView.sendSubviewToBack(bgImageView)
+        }
         
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         
         cell.labelLayoutAttrib = settings.style.buttonBarLayoutAlignment ?? .CenterY
-            
+        
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {
             cell.imageView.image = image
