@@ -89,6 +89,8 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         flowLayout.scrollDirection = .Horizontal
         let buttonBarHeight = self.settings.style.buttonBarHeight ?? 44
         let buttonBar = ButtonBarView(frame: CGRectMake(0, 0, self.view.frame.size.width, buttonBarHeight), collectionViewLayout: flowLayout)
+
+
         buttonBar.backgroundColor = .orangeColor()
         buttonBar.selectedBar.backgroundColor = .blackColor()
         buttonBar.autoresizingMask = .FlexibleWidth
@@ -136,6 +138,13 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         flowLayout.sectionInset = UIEdgeInsetsMake(sectionInset.top, self.settings.style.buttonBarLeftContentInset ?? sectionInset.left, sectionInset.bottom, self.settings.style.buttonBarRightContentInset ?? sectionInset.right)
 
         buttonBarView.showsHorizontalScrollIndicator = false
+        
+        //background image
+        if let bgImageView = settings.style.buttonBarBackgroundImageView {
+            buttonBarView.addSubview(bgImageView)
+            buttonBarView.sendSubviewToBack(bgImageView)
+        }
+        
         buttonBarView.backgroundColor = settings.style.buttonBarBackgroundColor ?? buttonBarView.backgroundColor
         buttonBarView.selectedBar.backgroundColor = settings.style.selectedBarBackgroundColor
         
@@ -278,12 +287,6 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         cell.label.text = indicatorInfo.title
         cell.label.font = settings.style.buttonBarItemFont ?? cell.label.font
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
-        
-        //background image
-        if let bgImageView = settings.style.buttonBarBackgroundImageView {
-            cell.contentView.addSubview(bgImageView)
-            cell.contentView.sendSubviewToBack(bgImageView)
-        }
         
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         
