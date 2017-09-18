@@ -59,7 +59,6 @@ public struct ButtonBarPagerTabStripSettings {
         
         //added options *pat o*
         public var buttonBarLayoutAlignment:NSLayoutAttribute?
-        public var buttonBarBackgroundImageView:UIImageView?
         
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
@@ -119,6 +118,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         if buttonBarView.superview == nil {
             view.addSubview(buttonBarView)
         }
@@ -128,6 +128,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         if buttonBarView.dataSource == nil {
             buttonBarView.dataSource = self
         }
+        
         buttonBarView.scrollsToTop = false
         let flowLayout = buttonBarView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .Horizontal
@@ -151,12 +152,6 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
             buttonBarView.registerClass(ButtonBarViewCell.self, forCellWithReuseIdentifier:"Cell")
         }
         //-
-        
-        //background images
-        if let bgImageView = settings.style.buttonBarBackgroundImageView {
-            buttonBarView.addSubview(bgImageView)
-            buttonBarView.sendSubviewToBack(bgImageView)
-        }
     }
     
     public override func viewWillAppear(animated: Bool) {
