@@ -30,6 +30,7 @@ class ButtonBarExampleViewController: ButtonBarPagerTabStripViewController {
     var isReload = false
     
     override func viewDidLoad() {
+        settings.style.selectedBarItemTitleColor = UIColor.orangeColor()
         super.viewDidLoad()
         buttonBarView.selectedBar.backgroundColor = .orangeColor()
         buttonBarView.backgroundColor = UIColor(red: 7/255, green: 185/255, blue: 155/255, alpha: 1)

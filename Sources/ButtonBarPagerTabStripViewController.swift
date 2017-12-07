@@ -59,6 +59,7 @@ public struct ButtonBarPagerTabStripSettings {
         
         //added options *pat o*
         public var buttonBarLayoutAlignment:NSLayoutAttribute?
+        public var selectedBarItemTitleColor: UIColor?
         
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
@@ -141,6 +142,8 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         
         buttonBarView.backgroundColor = settings.style.buttonBarBackgroundColor ?? buttonBarView.backgroundColor
         buttonBarView.selectedBar.backgroundColor = settings.style.selectedBarBackgroundColor
+        
+        
         
         buttonBarView.selectedBarHeight = settings.style.selectedBarHeight ?? buttonBarView.selectedBarHeight
         
@@ -253,6 +256,9 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         let oldCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? ButtonBarViewCell
         let newCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.item, inSection: 0)) as? ButtonBarViewCell
         if pagerBehaviour.isProgressiveIndicator {
+            oldCell?.label.textColor = settings.style.buttonBarItemTitleColor ?? newCell?.label.textColor
+            newCell?.label.textColor = settings.style.selectedBarItemTitleColor ?? oldCell?.label.textColor
+            
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
                 changeCurrentIndexProgressive(oldCell: oldCell, newCell: newCell, progressPercentage: 1, changeCurrentIndex: true, animated: true)
             }
@@ -306,6 +312,11 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
                 changeCurrentIndex(oldCell: currentIndex == indexPath.item ? nil : cell, newCell: currentIndex == indexPath.item ? cell : nil, animated: false)
             }
         }
+        
+        
+        let oldCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? ButtonBarViewCell
+        oldCell?.label.textColor = settings.style.selectedBarItemTitleColor ?? cell.label.textColor
+        
         return cell
     }
     
