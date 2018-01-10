@@ -1,7 +1,7 @@
 //  ButtonBarViewCell.swift
 //  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
 //
-//  Copyright (c) 2016 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2017 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,6 +24,7 @@
 
 import Foundation
 
+<<<<<<< HEAD
 public class ButtonBarViewCell: UICollectionViewCell {
     
     public var labelLayoutAttrib: NSLayoutAttribute!
@@ -72,4 +73,11 @@ public class ButtonBarViewCell: UICollectionViewCell {
             contentView.addConstraint(constraintCenter)
         }
     }
+=======
+open class ButtonBarViewCell: UICollectionViewCell {
+
+    @IBOutlet open var imageView: UIImageView!
+    @IBOutlet open var label: UILabel!
+
+>>>>>>> upstream/master
 }

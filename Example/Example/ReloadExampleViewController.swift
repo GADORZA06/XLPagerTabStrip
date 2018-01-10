@@ -1,7 +1,7 @@
 //  ReloadExampleViewController.swift
 //  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
 //
-//  Copyright (c) 2016 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2017 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,62 +26,61 @@ import UIKit
 import XLPagerTabStrip
 
 class ReloadExampleViewController: UIViewController {
-    
+
     @IBOutlet lazy var titleLabel: UILabel! = {
         let label = UILabel()
         return label
     }()
-    
+
     lazy var bigLabel: UILabel = {
         let bigLabel = UILabel()
-        bigLabel.backgroundColor = .clearColor()
-        bigLabel.textColor = .whiteColor()
-        bigLabel.font = UIFont.boldSystemFontOfSize(20)
+        bigLabel.backgroundColor = .clear
+        bigLabel.textColor = .white
+        bigLabel.font = UIFont.boldSystemFont(ofSize: 20)
         bigLabel.adjustsFontSizeToFitWidth = true
         return bigLabel
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let _ = navigationController {
+
+        if navigationController != nil {
             navigationItem.titleView = bigLabel
             bigLabel.sizeToFit()
         }
-        
-        if let pagerViewController = childViewControllers.filter( { $0 is PagerTabStripViewController } ).first as? PagerTabStripViewController {
-            updateTitle(pagerViewController)
+
+        if let pagerViewController = childViewControllers.first as? PagerTabStripViewController {
+            updateTitle(of: pagerViewController)
         }
     }
-    
-    @IBAction func reloadTapped(sender: UIBarButtonItem) {
+
+    @IBAction func reloadTapped(_ sender: UIBarButtonItem) {
         for childViewController in childViewControllers {
             guard let child = childViewController as? PagerTabStripViewController else {
                 continue
             }
             child.reloadPagerTabStripView()
-            updateTitle(child)
-            break;
+            updateTitle(of: child)
+            break
         }
     }
-    
-    
-    @IBAction func closeTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+
+    @IBAction func closeTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-    
-    func updateTitle(pagerTabStripViewController: PagerTabStripViewController) {
-        func stringFromBool(bool: Bool) -> String {
+
+    func updateTitle(of pagerTabStripViewController: PagerTabStripViewController) {
+        func stringFromBool(_ bool: Bool) -> String {
             return bool ? "YES" : "NO"
         }
-        
+
         titleLabel.text = "Progressive = \(stringFromBool(pagerTabStripViewController.pagerBehaviour.isProgressiveIndicator))  ElasticLimit = \(stringFromBool(pagerTabStripViewController.pagerBehaviour.isElasticIndicatorLimit))"
-        
+
         (navigationItem.titleView as? UILabel)?.text = titleLabel.text
         navigationItem.titleView?.sizeToFit()
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
