@@ -35,29 +35,35 @@ open class ButtonBarViewCell: UICollectionViewCell {
     private lazy var labelView:UIView = {
         let v = UIView()
         
-        v.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         v.addSubview(self.label)
         return v
     }()
     
 
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+        
+        if label.superview != nil {
             contentView.addSubview(labelView)
             label.translatesAutoresizingMaskIntoConstraints = false
             let constraint = NSLayoutConstraint(item: label,
-                                            attribute: labelLayoutAttrib,
-                                            relatedBy: .Equal,
-                                            toItem: contentView,
-                                            attribute: labelLayoutAttrib,
-                                            multiplier: 0.9,
-                                            constant: 0)
-            contentView.addConstraint(constraint)
-        
-            let constraintCenter = NSLayoutConstraint(item: label,
-                                                attribute: .CenterX,
-                                                relatedBy: .Equal,
+                                                attribute: labelLayoutAttrib,
+                                                relatedBy: .equal,
                                                 toItem: contentView,
-                                                attribute: .CenterX,
-                                                multiplier: 1.0,
+                                                attribute: labelLayoutAttrib,
+                                                multiplier: 0.9,
                                                 constant: 0)
+            contentView.addConstraint(constraint)
+            
+            let constraintCenter = NSLayoutConstraint(item: label,
+                                                      attribute: .centerX,
+                                                      relatedBy: .equal,
+                                                      toItem: contentView,
+                                                      attribute: .centerX,
+                                                      multiplier: 1.0,
+                                                      constant: 0)
             contentView.addConstraint(constraintCenter)
+        }
+    }
 }

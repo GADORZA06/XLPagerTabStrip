@@ -81,7 +81,6 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     public var settings = ButtonBarPagerTabStripSettings()
 
     public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarViewCell>!
-        label.text = "asldkj"//childItemInfo.title
 
     public var changeCurrentIndex: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ animated: Bool) -> Void)?
     public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
@@ -120,7 +119,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.font = self?.settings.style.buttonBarItemFont
-                label.text = childItemInfo.title
+                label.text = "asldkj"//childItemInfo.title
                 let labelSize = label.intrinsicContentSize
                 return labelSize.width + (self?.settings.style.buttonBarItemLeftRightMargin ?? 8) * 2
         })
@@ -304,6 +303,9 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
         let cells = cellForItems(at: [oldIndexPath, newIndexPath], reloadIfNotVisible: collectionViewDidLoad)
 
+        let oldCell = buttonBarView.cellForItem(at: NSIndexPath(item: currentIndex, section: 0) as IndexPath) as? ButtonBarViewCell
+        let newCell = buttonBarView.cellForItem(at: NSIndexPath(item: indexPath.item, section: 0) as IndexPath) as? ButtonBarViewCell
+        
         if pagerBehaviour.isProgressiveIndicator {
             oldCell?.label.textColor = settings.style.buttonBarItemTitleColor ?? newCell?.label.textColor
             newCell?.label.textColor = settings.style.selectedBarItemTitleColor ?? oldCell?.label.textColor
@@ -341,7 +343,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         
-        cell.labelLayoutAttrib = settings.style.buttonBarLayoutAlignment ?? .CenterY
+        cell.labelLayoutAttrib = settings.style.buttonBarLayoutAlignment ?? .centerY
         
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
         if let image = indicatorInfo.image {
@@ -364,7 +366,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         }
         
         
-        let oldCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? ButtonBarViewCell
+        let oldCell = buttonBarView.cellForItem(at: NSIndexPath(item: currentIndex, section: 0) as IndexPath) as? ButtonBarViewCell
         oldCell?.label.textColor = settings.style.selectedBarItemTitleColor ?? cell.label.textColor
         
         return cell
