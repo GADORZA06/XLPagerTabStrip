@@ -1,7 +1,7 @@
 //  ButtonBarViewCell.swift
 //  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
 //
-//  Copyright (c) 2016 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2017 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,21 +24,14 @@
 
 import Foundation
 
-public class ButtonBarViewCell: UICollectionViewCell {
-    
+open class ButtonBarViewCell: UICollectionViewCell {
+
     public var labelLayoutAttrib: NSLayoutAttribute!
     
-    @IBOutlet public var imageView: UIImageView!
-    @IBOutlet public lazy var label: UILabel! = { [unowned self] in
-        let label = UILabel(frame: self.contentView.bounds)
-        label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    @IBOutlet open var imageView: UIImageView!
+    @IBOutlet open var label: UILabel!
         
-        label.textAlignment = .Center
         
-        label.font = UIFont.boldSystemFontOfSize(14.0)
-        return label
-    }()
-    
     private lazy var labelView:UIView = {
         let v = UIView()
         
@@ -47,10 +40,7 @@ public class ButtonBarViewCell: UICollectionViewCell {
         return v
     }()
     
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
-        
-        if label.superview != nil {
+
             contentView.addSubview(labelView)
             label.translatesAutoresizingMaskIntoConstraints = false
             let constraint = NSLayoutConstraint(item: label,
@@ -70,6 +60,4 @@ public class ButtonBarViewCell: UICollectionViewCell {
                                                 multiplier: 1.0,
                                                 constant: 0)
             contentView.addConstraint(constraintCenter)
-        }
-    }
 }
